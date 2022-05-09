@@ -15,3 +15,19 @@ class MyTest(TestCase):
         result = "Ridgewood"
         self.assertEqual(result, get_cheapest_hotel("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)"))
 
+    def test4(self):
+        result = "Lakewood"
+        self.assertEqual(result, get_cheapest_hotel("Regular: 26Mar2009(thur)"))
+
+    def test5(self):
+        result = "Bridgewood"
+        self.assertEqual(result, get_cheapest_hotel("Regular: 14May2022(sat)"))
+
+    def test6(self):
+        result = "Lakewood"
+        self.assertEqual(result, get_cheapest_hotel("Rewards: 26Mar2009(thur)"))
+
+    def test7(self):
+        result = "Ridgewood"
+        self.assertEqual(result, get_cheapest_hotel("Rewards: 14May2022(sat)"))
+    
