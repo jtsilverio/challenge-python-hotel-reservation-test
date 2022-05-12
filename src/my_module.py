@@ -48,6 +48,27 @@ def get_quotes(days_of_week, hotel_info, client_type):
 
     return quotes
 
+def process_input(input):
+    # separate date and client type from input
+    input = input.split(sep=":")
+    client_type = input[0].lower()
+    dates = input[1].split(sep=",")
+    days_of_week = [date[11:-1] for date in dates]  # get only weekday names
+
+    # Just to be sure. Test and instructions did not match.
+    if client_type == "reward":
+        client_type = "rewards"
+    
+    # Check Parameter values
+    if client_type not in ["regular", "rewards"]:
+        raise ValueError("Client type must be 'regular' or 'rewards'")
+    
+    if not all(days in ["mon", "tues", "wed", "thur", "fri", "sat", "sun"] for days in days_of_week):
+        raise ValueError("Day of week must be one of: 'mon', 'tues', 'wed', 'thur', 'fri', 'sat', 'sun'")
+
+    return (client_type, days_of_week)
+
+
 
 def get_cheapest_hotel(input):  # DO NOT change the function's name
     """Process hotel info and determine the cheapest highest rating hotel
@@ -58,15 +79,10 @@ def get_cheapest_hotel(input):  # DO NOT change the function's name
     Returns:
         str: Cheapest hotel name
     """
-    # separate date and client type from input
-    input = input.split(sep=":")
-
-    client_type = input[0].lower()
-    if client_type == "reward":
-        client_type = "rewards"
-
-    dates = input[1].split(sep=",")
-    days_of_week = [date[11:-1] for date in dates]  # get only weekday names
+    # Process input and separate client type and days of week
+    processed_input = process_input(input)
+    client_type = processed_input[0]
+    days_of_week = processed_input[1]
 
     # calculate quotes
     hotel_info = get_hotel_info()
