@@ -61,7 +61,7 @@ def process_input(input):
     """    
     # separate date and client type from input
     input = input.split(sep=":")
-    client_type = input[0].lower()
+    client_type = input[0].lower().strip()
     dates = input[1].split(sep=",")
     dates = [date.strip() for date in dates]
     days_of_week = [date[10:-1] for date in dates]  # get only weekday names
