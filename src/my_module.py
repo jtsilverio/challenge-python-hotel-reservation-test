@@ -47,6 +47,18 @@ def get_quotes(days_of_week, hotel_info, client_type):
 
 
 def process_input(input):
+    """Process input string and check parameter values
+
+    Args:
+        input (str): String wiht info on the client type and number of days in the following format: "Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)"
+
+    Raises:
+        ValueError: If Client type is not one of: 'regular' or 'rewards' 
+        ValueError: If days_of_week is not one of "mon", "tues", "wed", "thur", "fri", "sat", "sun"
+
+    Returns:
+        tuple: Tuple containing a string with client type and a list with days_of_week of reservation
+    """    
     # separate date and client type from input
     input = input.split(sep=":")
     client_type = input[0].lower()
