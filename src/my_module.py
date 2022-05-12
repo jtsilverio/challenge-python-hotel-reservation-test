@@ -63,7 +63,8 @@ def process_input(input):
     input = input.split(sep=":")
     client_type = input[0].lower()
     dates = input[1].split(sep=",")
-    days_of_week = [date[11:-1] for date in dates]  # get only weekday names
+    dates = [date.strip() for date in dates]
+    days_of_week = [date[10:-1] for date in dates]  # get only weekday names
 
     # Just to be sure. Test and instructions did not match.
     if client_type == "reward":

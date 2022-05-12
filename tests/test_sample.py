@@ -31,3 +31,10 @@ class MyTest(TestCase):
         result = "Ridgewood"
         self.assertEqual(result, get_cheapest_hotel("Rewards: 14May2022(sat)"))
     
+    def test8(self):
+        result = "Ridgewood"
+        self.assertEqual(result, get_cheapest_hotel("Rewards:26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)"))
+
+    def test9(self):
+        result = "Ridgewood"
+        self.assertEqual(result, get_cheapest_hotel("Rewards:26Mar2009(thur),27Mar2009(fri),28Mar2009(sat)"))
