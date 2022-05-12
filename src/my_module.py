@@ -21,7 +21,7 @@ def get_hotel_info():
             "rewards": {"week": 100, "weekend": 40},
         },
     }
-    
+
     return hotel_info
 
 
@@ -38,15 +38,13 @@ def get_quotes(days_of_week, hotel_info, client_type):
     """
     # calculate total quotes
     quotes = {}
-    for hotel in hotel_info:
-        quotes[hotel] = 0
-        for day in days_of_week:
-            if day in ["sat", "sun"]:
-                quotes[hotel] += hotel_info[hotel][client_type]["weekend"]
-            else:
-                quotes[hotel] += hotel_info[hotel][client_type]["week"]
+    for hotel in hotel_info:  
+        n_weekend = days_of_week.count("sat") + days_of_week.count("sun")
+        n_weekday = len(days_of_week) - n_weekend
+        quotes[hotel] = (n_weekday * hotel_info[hotel][client_type]["week"]) + (n_weekend * hotel_info[hotel][client_type]["weekend"])
 
     return quotes
+
 
 def process_input(input):
     # separate date and client type from input
@@ -58,16 +56,20 @@ def process_input(input):
     # Just to be sure. Test and instructions did not match.
     if client_type == "reward":
         client_type = "rewards"
-    
+
     # Check Parameter values
     if client_type not in ["regular", "rewards"]:
         raise ValueError("Client type must be 'regular' or 'rewards'")
-    
-    if not all(days in ["mon", "tues", "wed", "thur", "fri", "sat", "sun"] for days in days_of_week):
-        raise ValueError("Day of week must be one of: 'mon', 'tues', 'wed', 'thur', 'fri', 'sat', 'sun'")
+
+    if not all(
+        days in ["mon", "tues", "wed", "thur", "fri", "sat", "sun"]
+        for days in days_of_week
+    ):
+        raise ValueError(
+            "Day of week must be one of: 'mon', 'tues', 'wed', 'thur', 'fri', 'sat', 'sun'"
+        )
 
     return (client_type, days_of_week)
-
 
 
 def get_cheapest_hotel(input):  # DO NOT change the function's name
